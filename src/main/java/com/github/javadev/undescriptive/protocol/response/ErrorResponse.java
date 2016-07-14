@@ -2,8 +2,6 @@ package com.github.javadev.undescriptive.protocol.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.Collection;
-
 public class ErrorResponse {
     @JsonProperty private final ErrorResponseItem error;
 

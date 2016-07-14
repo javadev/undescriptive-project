@@ -1,0 +1,42 @@
+1198522:
+{
+    "gameId": 1198522,
+    "knight": {
+        "name": "Sir. Owen Brock of Manitoba",
+        "attack": 4,
+        "armor": 2,
+        "agility": 6,
+        "endurance": 8
+    }
+}
+
+Weather:
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<report>
+    <time>Thu Jul 14 2016 16:52:10 GMT+0000 (UTC)</time>
+    <coords>
+        <x>3916.234</x>
+        <y>169.914</y>
+        <z>6.33</z>
+    </coords><code>FUNDEFINEDG</code>
+    <message>It’s very difficult to foresee what the day will bring, it’s mostly because of the fog that is going to be dominant all over the Kingdom, seriously affecting overall visibility and usefulness of seeing eye dogs. All business and governing activities
+        have been postponed due to transparency issues and also due to some pretty serious corruption, which is unrelated to the weather conditions.</message>
+    <varX-Rating>1.71</varX-Rating>
+</report>
+
+PUT: http://www.dragonsofmugloar.com/api/game/1198522/solution
+{
+    "dragon": {
+        "scaleThickness": 10,
+        "clawSharpness": 5,
+        "wingStrength": 4,
+        "fireBreath": 1
+    }
+}
+
+Response:
+{
+    "status": "Defeat",
+    "message": "No dragon showed up, knight dealt his deeds as he pleased."
+}
