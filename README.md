@@ -1,3 +1,3 @@
-# dragonsofmugloar-game
-My solution for the dragonsofmugloar game.
+# undescriptive-project
+My solution for the test game.
 
