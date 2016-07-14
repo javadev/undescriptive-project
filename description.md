@@ -15,3 +15,8 @@ As the weather in our kingdom can be pretty hectic, you should collaborate with 
 Here is their address: http://www.dragonsofmugloar.com/weather
 
 Their responses might be a bit overwhelming and irrelevant to you at first, but forgive them, they do not specialise in dragons but weather. You may find some dragon-related notes by your predecessor that can help you understand the forecasts, although you might not want to take these too seriously, not only was the guy under the impression that dragons would enjoy spinach, he also repurposed quite a few seagull nests as hats. 
+
+[![Description 1](https://raw.github.com/javadev/undescriptive-project/master/001.png)](https://github.com/javadev/undescriptive-project)
+[![Description 2](https://raw.github.com/javadev/undescriptive-project/master/002.png)](https://github.com/javadev/undescriptive-project)
+[![Description 3](https://raw.github.com/javadev/undescriptive-project/master/003.png)](https://github.com/javadev/undescriptive-project)
+[![Description 1](https://raw.github.com/javadev/undescriptive-project/master/004.png)](https://github.com/javadev/undescriptive-project)
