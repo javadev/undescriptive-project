@@ -1,4 +1,5 @@
 Dragons of Mugloar API
+======================
 
 Create a program which:
 1.Fetches new game from game API
@@ -14,6 +15,7 @@ Start battle
 GET http://www.dragonsofmugloar.com/api/game
 
 Will return a game in JSON format
+```javascript
 {
     "gameId":483159,
     "knight": {
@@ -24,12 +26,13 @@ Will return a game in JSON format
         "endurance": 8
     }
 }
-
+```
 
 Solve battle
 PUT http://www.dragonsofmugloar.com/api/game/{gameid}/solution
 
 PUT a message with an optional "Dragon" in the object to the specified URL. You must spread 20 points between all four stats.
+```javascript
 {
     "dragon": {
         "scaleThickness": 10,
@@ -38,6 +41,6 @@ PUT a message with an optional "Dragon" in the object to the specified URL. You 
         "fireBreath": 1
     }
 }
-
+```
 
 You will receive a message stating whether battle was successful or not, and if not then why not.
