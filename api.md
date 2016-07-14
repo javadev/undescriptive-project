@@ -44,3 +44,9 @@ PUT a message with an optional "Dragon" in the object to the specified URL. You 
 ```
 
 You will receive a message stating whether battle was successful or not, and if not then why not.
+
+Contact
+
+jaan.pullerits@bigbank.ee for help
+
+nele.sergejeva@bigbank.ee for more dragons
