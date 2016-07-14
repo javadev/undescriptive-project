@@ -48,6 +48,11 @@ public class AsyncClient {
             new AsyncHttpClient(commonSetup(new Builder())), BASE_URL);
     }
 
+    public static AsyncClient create(final AsyncHttpClientConfig config) {
+        return new AsyncClient(
+            new AsyncHttpClient(commonSetup(new Builder(config))), BASE_URL);
+    }
+
     public void close() {
         this.httpClient.close();
     }
