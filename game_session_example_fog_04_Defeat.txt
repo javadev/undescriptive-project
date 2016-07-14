@@ -1,0 +1,40 @@
+7560496:
+{
+    "gameId": 7560496,
+    "knight": {
+        "name": "Sir. Nathan Hall of Northwest Territories",
+        "attack": 1,
+        "armor": 8,
+        "agility": 8,
+        "endurance": 3
+    }
+}
+
+Weather:
+
+<report>
+    <time>Thu Jul 14 2016 17:22:57 GMT+0000 (UTC)</time>
+    <coords>
+        <x>3916.234</x>
+        <y>169.914</y>
+        <z>6.33</z>
+    </coords><code>NMR</code>
+    <message>Another day of everyday normal regular weather, business as usual, unless it’s going to be like the time of the Great Paprika Mayonnaise Incident of 2014, that was some pretty nasty stuff.</message>
+    <varX-Rating>8</varX-Rating>
+</report>
+
+PUT: http://www.dragonsofmugloar.com/api/game/7560496/solution
+{
+    "dragon": {
+        "scaleThickness": 10,
+        "clawSharpness": 5,
+        "wingStrength": 4,
+        "fireBreath": 1
+    }
+}
+
+Response:
+{
+    "status": "Defeat",
+    "message": "No dragon showed up, knight dealt his deeds as he pleased."
+}
