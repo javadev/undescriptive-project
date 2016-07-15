@@ -70,9 +70,11 @@ public class AsyncClient {
     private BoundRequestBuilder put(final String resourceUrl, final HasParams hasParams) {
         final BoundRequestBuilder builder = this.httpClient.preparePut(this.baseUrl + resourceUrl);
         final Map<String, Object> params = hasParams.getParams();
-
-        for (Map.Entry<String, Object> entry : params.entrySet()) {
-            builder.addParameter(entry.getKey(), "test");
+        try {
+            final String objectAsString = MAPPER.writeValueAsString(params);
+System.out.println(objectAsString);
+            builder.setBody(objectAsString); 
+        } catch (Exception ignore) {            
         }
         return builder;
     }
@@ -82,7 +84,7 @@ public class AsyncClient {
     }
 
     public ListenableFuture<GameResponse> putGame(Integer id, GameRequest gameRequest) {
-        return execute(GameResponse.class, put("" + id + "/solution", gameRequest));
+        return execute(GameResponse.class, put("/" + id + "/solution", gameRequest));
     }
 
     private static <T> ListenableFuture<T> execute(
