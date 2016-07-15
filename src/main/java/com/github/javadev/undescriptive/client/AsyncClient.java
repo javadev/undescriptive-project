@@ -7,6 +7,7 @@ import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
 import com.github.javadev.undescriptive.ApiException;
+import com.github.javadev.undescriptive.protocol.request.HasParams;
 import com.github.javadev.undescriptive.protocol.response.*;
 import com.ning.http.client.AsyncCompletionHandler;
 import com.ning.http.client.AsyncHttpClient;
@@ -18,6 +19,7 @@ import com.ning.http.client.Realm;
 import com.ning.http.client.Response;
 
 import java.io.IOException;
+import java.util.Map;
 
 public class AsyncClient {
     private static final String BASE_URL = "http://www.dragonsofmugloar.com/api/game";
@@ -61,20 +63,22 @@ public class AsyncClient {
         this.httpClient.closeAsynchronously();
     }
 
-    private BoundRequestBuilder get(final String resourceUrl, final FluentStringsMap params) {
-        return this.httpClient.prepareGet(this.baseUrl + resourceUrl).setQueryParameters(params);
+    private BoundRequestBuilder get(final String resourceUrl) {
+        return this.httpClient.prepareGet(this.baseUrl + resourceUrl);
     }
 
-    private BoundRequestBuilder post(final String resourceUrl/*, final HasParams hasParams*/) {
+    private BoundRequestBuilder post(final String resourceUrl, final HasParams hasParams) {
         final BoundRequestBuilder builder = this.httpClient.preparePost(this.baseUrl + resourceUrl);
-//        final Collection<Param> params = hasParams.getParams();
+        final Map<String, Object> params = hasParams.getParams();
 
-//        for (final Param param : params) {
-//            for (final String s : param.getStringParam()) {
-//                builder.addParameter(param.getName(), s);
-//            }
-//        }
+        for (Map.Entry<String, Object> entry : params.entrySet()) {
+            builder.addParameter(entry.getKey(), "test");
+        }
         return builder;
+    }
+
+    public ListenableFuture<GameResponse> getGame() {
+        return execute(GameResponse.class, get(""));
     }
 
     private static <T> ListenableFuture<T> execute(
