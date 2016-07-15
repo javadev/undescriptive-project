@@ -83,8 +83,8 @@ System.out.println(objectAsString);
         return execute(GameResponse.class, get(""));
     }
 
-    public ListenableFuture<GameResponse> putGame(Integer id, GameRequest gameRequest) {
-        return execute(GameResponse.class, put("/" + id + "/solution", gameRequest));
+    public ListenableFuture<SolutionResponse> putGame(Integer id, GameRequest gameRequest) {
+        return execute(SolutionResponse.class, put("/" + id + "/solution", gameRequest));
     }
 
     private static <T> ListenableFuture<T> execute(

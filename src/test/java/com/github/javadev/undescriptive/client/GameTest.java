@@ -3,6 +3,7 @@ package com.github.javadev.undescriptive.client;
 import ch.qos.logback.classic.Level;
 import com.github.javadev.undescriptive.protocol.request.GameRequest;
 import com.github.javadev.undescriptive.protocol.response.GameResponse;
+import com.github.javadev.undescriptive.protocol.response.SolutionResponse;
 import org.junit.Test;
 
 import org.junit.BeforeClass;
@@ -26,6 +27,7 @@ public class GameTest {
         request.claw = 5;
         request.wing = 5;
         request.fire = 5;
-        client.putGame(game.getGameId(), request).get();
+        SolutionResponse response = client.putGame(game.getGameId(), request).get();
+        System.out.println(response);
     }
 }
