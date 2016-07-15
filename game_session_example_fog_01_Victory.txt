@@ -20,7 +20,7 @@ Weather:
         <y>169.914</y>
         <z>6.33</z>
     </coords><code>FUNDEFINEDG</code>
-    <message>It’s very difficult to foresee what the day will bring, it’s mostly because of the fog that is going to be dominant all over the Kingdom, seriously affecting overall visibility and usefulness of seeing eye dogs. All business and governing activities
+    <message>Itâ€™s very difficult to foresee what the day will bring, itâ€™s mostly because of the fog that is going to be dominant all over the Kingdom, seriously affecting overall visibility and usefulness of seeing eye dogs. All business and governing activities
         have been postponed due to transparency issues and also due to some pretty serious corruption, which is unrelated to the weather conditions.</message>
     <varX-Rating>1.71</varX-Rating>
 </report>
@@ -39,4 +39,4 @@ Response:
 {
     "status": "Victory",
     "message": "Knight was useless in the fog."
-}
+}

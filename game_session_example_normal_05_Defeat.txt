@@ -19,7 +19,7 @@ Weather:
         <y>169.914</y>
         <z>6.33</z>
     </coords><code>NMR</code>
-    <message>Another day of everyday normal regular weather, business as usual, unless it’s going to be like the time of the Great Paprika Mayonnaise Incident of 2014, that was some pretty nasty stuff.</message>
+    <message>Another day of everyday normal regular weather, business as usual, unless itâ€™s going to be like the time of the Great Paprika Mayonnaise Incident of 2014, that was some pretty nasty stuff.</message>
     <varX-Rating>8</varX-Rating>
 </report>
 
@@ -37,4 +37,20 @@ Response:
 {
     "status": "Defeat",
     "message": "Dragon could not compete with knights armor"
-}PUT:{    "dragon": {        "scaleThickness": 10,        "clawSharpness": 5,        "wingStrength": 4,        "fireBreath": 1    }}Response:{    "status": "Defeat",    "message": "Dragon could not compete with knights epic endurance"}
+}
+
+PUT:
+{
+    "dragon": {
+        "scaleThickness": 10,
+        "clawSharpness": 5,
+        "wingStrength": 4,
+        "fireBreath": 1
+    }
+}
+
+Response:
+{
+    "status": "Defeat",
+    "message": "Dragon could not compete with knights epic endurance"
+}

@@ -8,7 +8,7 @@ Weather: GET: http://www.dragonsofmugloar.com/weather/api/report/9690636
         <y>169.914</y>
         <z>6.33</z>
     </coords><code>SRO</code>
-    <message>Looks like it’s going to be one of those days when the kingdom feels a bittersweet longing for the Above Average Impressive Frog Rain of 2012. The clouds are gathering and swirling themselves up for a storm. It would probably wise to not go out as
+    <message>Looks like itâ€™s going to be one of those days when the kingdom feels a bittersweet longing for the Above Average Impressive Frog Rain of 2012. The clouds are gathering and swirling themselves up for a storm. It would probably wise to not go out as
         the winds are gathering speed, you would want to land as close as possible to where your house ends up as the sky clears up again.</message>
     <varX-Rating>2.86</varX-Rating>
 </report>
@@ -26,4 +26,20 @@ PUT: http://www.dragonsofmugloar.com/api/game/9690636/solution
 {
     "status": "Victory",
     "message": "Knight died in storm, dragon survived in the pen."
-}or PUT:{    "dragon": {        "scaleThickness": 0,        "clawSharpness": 0,        "wingStrength": 0,        "fireBreath": 0    }}{    "status": "Victory",    "message": "Knight died in storm, dragon survived in the pen."}
+}
+
+or PUT:
+
+{
+    "dragon": {
+        "scaleThickness": 0,
+        "clawSharpness": 0,
+        "wingStrength": 0,
+        "fireBreath": 0
+    }
+}
+
+{
+    "status": "Victory",
+    "message": "Knight died in storm, dragon survived in the pen."
+}
