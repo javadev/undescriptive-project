@@ -36,5 +36,5 @@ PUT: http://www.dragonsofmugloar.com/api/game/274077/solution
 Response:
 {
     "status": "Defeat",
-    "message": "No dragon showed up, knight dealt his deeds as he pleased."
+    "message": "Dragon could not compete with knights epic agility"
 }

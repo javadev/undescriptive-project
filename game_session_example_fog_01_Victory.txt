@@ -37,6 +37,6 @@ PUT: http://www.dragonsofmugloar.com/api/game/1198522/solution
 
 Response:
 {
-    "status": "Defeat",
-    "message": "No dragon showed up, knight dealt his deeds as he pleased."
+    "status": "Victory",
+    "message": "Knight was useless in the fog."
 }
