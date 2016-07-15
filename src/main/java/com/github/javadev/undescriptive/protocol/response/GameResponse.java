@@ -24,7 +24,7 @@ public class GameResponse {
     public String toString() {
         return "GameResponse{" +
             "gameId=" + gameId +
-            "knight=" + gameResponseItem +
-            '}';
+            ", knight={" + gameResponseItem + "}"
+            + '}';
     }
 }

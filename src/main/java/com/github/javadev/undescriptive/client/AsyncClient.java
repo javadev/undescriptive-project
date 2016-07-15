@@ -7,7 +7,7 @@ import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
 import com.github.javadev.undescriptive.ApiException;
-import com.github.javadev.undescriptive.protocol.request.HasParams;
+import com.github.javadev.undescriptive.protocol.request.*;
 import com.github.javadev.undescriptive.protocol.response.*;
 import com.ning.http.client.AsyncCompletionHandler;
 import com.ning.http.client.AsyncHttpClient;
@@ -67,8 +67,8 @@ public class AsyncClient {
         return this.httpClient.prepareGet(this.baseUrl + resourceUrl);
     }
 
-    private BoundRequestBuilder post(final String resourceUrl, final HasParams hasParams) {
-        final BoundRequestBuilder builder = this.httpClient.preparePost(this.baseUrl + resourceUrl);
+    private BoundRequestBuilder put(final String resourceUrl, final HasParams hasParams) {
+        final BoundRequestBuilder builder = this.httpClient.preparePut(this.baseUrl + resourceUrl);
         final Map<String, Object> params = hasParams.getParams();
 
         for (Map.Entry<String, Object> entry : params.entrySet()) {
@@ -79,6 +79,10 @@ public class AsyncClient {
 
     public ListenableFuture<GameResponse> getGame() {
         return execute(GameResponse.class, get(""));
+    }
+
+    public ListenableFuture<GameResponse> putGame(Integer id, GameRequest gameRequest) {
+        return execute(GameResponse.class, put("" + id + "/solution", gameRequest));
     }
 
     private static <T> ListenableFuture<T> execute(

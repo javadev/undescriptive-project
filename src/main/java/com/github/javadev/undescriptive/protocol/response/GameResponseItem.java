@@ -10,7 +10,7 @@ public class GameResponseItem {
     @JsonProperty private final int endurance;
 
     public GameResponseItem(
-            @JsonProperty("message") final String name,
+            @JsonProperty("name") final String name,
             @JsonProperty("attack") final int attack,
             @JsonProperty("armor") final int armor,
             @JsonProperty("agility") final int agility,
@@ -45,6 +45,10 @@ public class GameResponseItem {
 
     @Override
     public String toString() {
-        return "name: " + name;
+        return "name: " + name
+            + ", attack: " + attack
+            + ", armor: " + armor
+            + ", agility: " + agility
+            + ", endurance: " + endurance;
     }
 }
