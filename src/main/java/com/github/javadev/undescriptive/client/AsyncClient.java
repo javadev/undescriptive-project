@@ -72,7 +72,7 @@ public class AsyncClient {
         final Map<String, Object> params = hasParams.getParams();
         try {
             final String objectAsString = MAPPER.writeValueAsString(params);
-System.out.println(objectAsString);
+            builder.addHeader("Content-Type", "application/json; charset=utf-8");
             builder.setBody(objectAsString); 
         } catch (Exception ignore) {            
         }
