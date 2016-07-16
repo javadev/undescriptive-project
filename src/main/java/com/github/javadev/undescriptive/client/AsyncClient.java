@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
 import com.github.javadev.undescriptive.ApiException;
@@ -28,6 +29,8 @@ public class AsyncClient {
         .registerModule(new JodaModule())
         .registerModule(new SimpleModule())
         .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+    private final static XmlMapper XML_MAPPER = new XmlMapper();
 
     private final AsyncHttpClient httpClient;
     private final String baseUrl;
@@ -128,11 +131,11 @@ public class AsyncClient {
         @Override
         public T onCompleted(final Response response) throws Exception {
             if (isSuccess(response)) {
-                final T value = MAPPER.readValue(response.getResponseBody(), clazz);
+                final T value = clazz == WeatherResponse.class ? XML_MAPPER.readValue(response.getResponseBody(), clazz)
+                    : MAPPER.readValue(response.getResponseBody(), clazz);
                 guavaFut.set(value);
                 return value;
-            }
-            else {
+            } else {
                 final ErrorResponse error = MAPPER.readValue(response.getResponseBody(), ErrorResponse.class);
                 final ApiException exception = new ApiException(response.getUri(), error);
                 guavaFut.setException(exception);
