@@ -102,7 +102,7 @@ public class AsyncClient {
         
         Arrays.sort(indexes, new Comparator<Integer>() {
             @Override public int compare(final Integer o1, final Integer o2) {
-                return Integer.compare(knightAttrs.get(o1), knightAttrs.get(o2));
+                return Integer.valueOf(knightAttrs.get(o1)).compareTo(Integer.valueOf(knightAttrs.get(o2)));
             }
         });
         int maxIndex = indexes[3];
