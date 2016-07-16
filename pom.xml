@@ -75,16 +75,6 @@
       <version>${netty.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.joda</groupId>
-      <artifactId>joda-money</artifactId>
-      <version>${joda.money.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>joda-time</groupId>
-      <artifactId>joda-time</artifactId>
-      <version>${joda.time.version}</version>
-    </dependency>
-    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>${junit.version}</version>

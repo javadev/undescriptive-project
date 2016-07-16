@@ -1,0 +1,20 @@
+GameResponse{gameId=9790866, knight={name: Sir. Harry Lynch of Ontario, attack: 2, armor: 5, agility: 8, endurance: 5}}
+[2, 4, 10, 4]
+GameResponse{gameId=4803378, knight={name: Sir. Luis Delgado of New Brunswick, attack: 3, armor: 3, agility: 6, endurance: 8}}
+[4, 2, 4, 10]
+GameResponse{gameId=9314407, knight={name: Sir. Bryan McDaniel of Nova Scotia, attack: 5, armor: 7, agility: 0, endurance: 8}}
+[4, 5, 1, 10]
+GameResponse{gameId=7132287, knight={name: Sir. Philip Davidson of Nunavut, attack: 5, armor: 1, agility: 6, endurance: 8}}
+[5, 1, 4, 10]
+GameResponse{gameId=2509718, knight={name: Sir. Edwin Burton of Manitoba, attack: 3, armor: 8, agility: 4, endurance: 5}}
+[3, 10, 3, 4]
+GameResponse{gameId=2960295, knight={name: Sir. Garrett Holland of Quebec, attack: 2, armor: 8, agility: 5, endurance: 5}}
+[2, 10, 4, 4]
+GameResponse{gameId=5059376, knight={name: Sir. Johnny Wallace of Northwest Territories, attack: 4, armor: 6, agility: 8, endurance:
+[5, 4, 10, 1]
+GameResponse{gameId=1692872, knight={name: Sir. Raymond Chavez of Ontario, attack: 8, armor: 7, agility: 2, endurance: 3}}
+[10, 7, 1, 2]
+GameResponse{gameId=3741528, knight={name: Sir. Gene Schwartz of British Columbia, attack: 7, armor: 2, agility: 4, endurance: 7}} (fog)
+[10, 8, 1, 1]
+GameResponse{gameId=8900829, knight={name: Sir. Charles Bowers of Manitoba, attack: 8, armor: 5, agility: 5, endurance: 2}}
+[10, 5, 4, 1]

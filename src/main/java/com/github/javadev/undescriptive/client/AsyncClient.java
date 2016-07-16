@@ -21,7 +21,8 @@ import java.io.IOException;
 import java.util.Map;
 
 public class AsyncClient {
-    private static final String BASE_URL = "http://www.dragonsofmugloar.com/api/game";
+    private static final String BASE_URL = "http://www.dragonsofmugloar.com";
+    private static final String WEATHER_URL = "/weather/api/report/";
 
     private final static ObjectMapper MAPPER = new ObjectMapper()
         .registerModule(new JodaModule())
@@ -79,11 +80,15 @@ public class AsyncClient {
     }
 
     public ListenableFuture<GameResponse> getGame() {
-        return execute(GameResponse.class, get(""));
+        return execute(GameResponse.class, get("/api/game"));
     }
 
     public ListenableFuture<SolutionResponse> putGame(Integer id, SolutionRequest gameRequest) {
-        return execute(SolutionResponse.class, put("/" + id + "/solution", gameRequest));
+        return execute(SolutionResponse.class, put("/api/game/" + id + "/solution", gameRequest));
+    }
+
+    public ListenableFuture<SolutionResponse> getWeather(Integer id) {
+        return execute(SolutionResponse.class, get("/weather/api/report/" + id));
     }
 
     private static <T> ListenableFuture<T> execute(
