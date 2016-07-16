@@ -142,10 +142,6 @@ public class AsyncClient {
             dragonAttrs[thirdMaxIndex] = 4;
             dragonAttrs[forthMaxIndex] = 2;
         }
-            System.out.println("maxIndex - " + maxIndex);
-            System.out.println("secondMaxIndex - " + secondMaxIndex);
-            System.out.println("thirdMaxIndex - " + thirdMaxIndex);
-            System.out.println("forthMaxIndex - " + forthMaxIndex);
         final SolutionRequest request = SolutionRequest.builder()
             .scale(dragonAttrs[0])
             .claw(dragonAttrs[1])
