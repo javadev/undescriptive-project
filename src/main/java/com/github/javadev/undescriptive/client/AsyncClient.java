@@ -98,10 +98,16 @@ public class AsyncClient {
         int maxItem = Collections.max(knightAttrs);
         int countMax = 0;
         int maxIndex = 0;
+        int maxIndex1 = 0;
+        int maxIndex2 = 0;
         int index = 0;
         for (Integer attr : knightAttrs) {
             if (attr.equals(maxItem)) {
                 countMax += 1;
+                if (countMax == 2) {
+                    maxIndex1 = maxIndex;
+                    maxIndex2 = index;
+                }
                 maxIndex = index;
             }
             index += 1;
@@ -109,19 +115,22 @@ public class AsyncClient {
         int secondMaxIndex = 0;
         int thirdMaxIndex = 0;
         int forthMaxIndex = 0;
-        int maxIndex1 = 0;
-        int maxIndex2 = 0;
         int[] dragonAttrs = new int[] {0, 0, 0, 0};
         if (countMax == 1) {
-            dragonAttrs[maxIndex] = knightAttrs.get(maxIndex).intValue() + 2;
-            dragonAttrs[secondMaxIndex] = knightAttrs.get(secondMaxIndex).intValue() - 2;
-            dragonAttrs[thirdMaxIndex] = 20 - (dragonAttrs[maxIndex] + dragonAttrs[secondMaxIndex] + 1);
+            dragonAttrs[maxIndex] = 10;
+            dragonAttrs[secondMaxIndex] = 5;
+            dragonAttrs[thirdMaxIndex] = 4;
             dragonAttrs[forthMaxIndex] = 1;
         }
         if (countMax == 2) {
             dragonAttrs[secondMaxIndex] = 10;
-            dragonAttrs[maxIndex1] = 4;
-            dragonAttrs[maxIndex2] = 4;
+            dragonAttrs[maxIndex1] = 6;
+            dragonAttrs[maxIndex2] = 3;
+            dragonAttrs[forthMaxIndex] = 1;
+        } else {
+            dragonAttrs[maxIndex] = 10;
+            dragonAttrs[secondMaxIndex] = 4;
+            dragonAttrs[thirdMaxIndex] = 4;
             dragonAttrs[forthMaxIndex] = 2;
         }
         final SolutionRequest request = SolutionRequest.builder()
