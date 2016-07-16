@@ -36,6 +36,12 @@ public class GameTest {
     @Test
     public void testGame() throws Exception {
         final GameResponse game = client.getGame().get();
+        game.getGameResponseItem();
+        game.getGameResponseItem().getName();
+        game.getGameResponseItem().getAttack();
+        game.getGameResponseItem().getArmor();
+        game.getGameResponseItem().getAgility();
+        game.getGameResponseItem().getEndurance();
         System.out.println(game);
         final SolutionRequest request = SolutionRequest.builder()
             .scale(5)
@@ -44,8 +50,13 @@ public class GameTest {
             .fire(5)
             .build();
         WeatherResponse weatherResponse = client.getWeather(game.getGameId()).get();
+        weatherResponse.getTime();
+        weatherResponse.getCode();
+        weatherResponse.getMessage();
         System.out.println(weatherResponse);
         SolutionResponse response = client.putGame(game.getGameId(), request).get();
+        response.getStatus();
+        response.getMessage();
         System.out.println(response);
     }
 }
