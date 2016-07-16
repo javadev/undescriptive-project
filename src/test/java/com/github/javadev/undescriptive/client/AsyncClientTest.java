@@ -1,5 +1,8 @@
 package com.github.javadev.undescriptive.client;
 
+import com.google.common.util.concurrent.ListenableFuture;
+import com.github.javadev.undescriptive.protocol.response.GameResponse;
+import com.ning.http.client.AsyncHandler;
 import com.ning.http.client.AsyncHttpClient;
 import com.ning.http.client.AsyncHttpClientConfig;
 import com.ning.http.client.FluentStringsMap;
@@ -13,7 +16,9 @@ import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.lang.reflect.Constructor;
+import java.util.concurrent.ExecutionException;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
@@ -45,6 +50,14 @@ public class AsyncClientTest {
         when(builder.setQueryParameters(any(FluentStringsMap.class))).thenReturn(builder);
 
         AsyncClient.create(new AsyncHttpClientConfig.Builder().build());
+    }
+
+    @Test(expected = ExecutionException.class)
+    public void requestIOExceptionTest() throws Exception {
+        when(builder.execute(any(AsyncHandler.class))).thenThrow(new IOException());
+
+        final ListenableFuture<GameResponse> response = client.getGame();
+        response.get();
     }
 
     @Test
