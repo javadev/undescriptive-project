@@ -20,6 +20,20 @@ public class GameTest {
     }
 
     @Test
+    public void testRequest() throws Exception {
+        final SolutionRequest request = SolutionRequest.builder()
+            .scale(5)
+            .claw(5)
+            .wing(5)
+            .fire(5)
+            .build();
+        request.getScale();
+        request.getClaw();
+        request.getWing();
+        request.getFire();
+    }
+
+    @Test
     public void testGame() throws Exception {
         final GameResponse game = client.getGame().get();
         System.out.println(game);

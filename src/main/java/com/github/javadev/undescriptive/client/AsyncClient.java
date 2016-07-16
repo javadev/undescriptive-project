@@ -7,7 +7,6 @@ import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
-import com.github.javadev.undescriptive.ApiException;
 import com.github.javadev.undescriptive.protocol.request.*;
 import com.github.javadev.undescriptive.protocol.response.*;
 import com.ning.http.client.AsyncCompletionHandler;
@@ -136,10 +135,7 @@ public class AsyncClient {
                 guavaFut.set(value);
                 return value;
             } else {
-                final ErrorResponse error = MAPPER.readValue(response.getResponseBody(), ErrorResponse.class);
-                final ApiException exception = new ApiException(response.getUri(), error);
-                guavaFut.setException(exception);
-                throw exception;
+                throw new UnsupportedOperationException(response.getResponseBody());
             }
         }
     }
