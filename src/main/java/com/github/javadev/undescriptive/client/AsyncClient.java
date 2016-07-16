@@ -109,39 +109,11 @@ public class AsyncClient {
         int secondMaxIndex = indexes[2];
         int thirdMaxIndex = indexes[1];
         int forthMaxIndex = indexes[0];
-        int maxItem = Collections.max(knightAttrs);
-        int countMax = 0;
-        int maxIndex1 = 0;
-        int maxIndex2 = 0;
-        int index = 0;
-        for (Integer attr : knightAttrs) {
-            if (attr.equals(maxItem)) {
-                countMax += 1;
-                if (countMax == 2) {
-                    maxIndex1 = maxIndex;
-                    maxIndex2 = index;
-                }
-            }
-            index += 1;
-        }
         int[] dragonAttrs = new int[] {0, 0, 0, 0};
-        if (countMax == 1) {
-            dragonAttrs[maxIndex] = 10;
-            dragonAttrs[secondMaxIndex] = 5;
-            dragonAttrs[thirdMaxIndex] = 4;
-            dragonAttrs[forthMaxIndex] = 1;
-        }
-        if (countMax == 2) {
-            dragonAttrs[secondMaxIndex] = 10;
-            dragonAttrs[maxIndex1] = 5;
-            dragonAttrs[maxIndex2] = 4;
-            dragonAttrs[thirdMaxIndex] = 1;
-        } else {
-            dragonAttrs[maxIndex] = 10;
-            dragonAttrs[secondMaxIndex] = 4;
-            dragonAttrs[thirdMaxIndex] = 4;
-            dragonAttrs[forthMaxIndex] = 2;
-        }
+        dragonAttrs[maxIndex] = 10;
+        dragonAttrs[secondMaxIndex] = 4;
+        dragonAttrs[thirdMaxIndex] = 4;
+        dragonAttrs[forthMaxIndex] = 2;
         final SolutionRequest request = SolutionRequest.builder()
             .scale(dragonAttrs[0])
             .claw(dragonAttrs[1])
