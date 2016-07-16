@@ -19,9 +19,12 @@ import com.ning.http.client.Response;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class AsyncClient {
     private static final String BASE_URL = "http://www.dragonsofmugloar.com";
@@ -93,11 +96,21 @@ public class AsyncClient {
     }
 
     public SolutionRequest solveGame(GameResponseItem gameResponseItem) {
-        List<Integer> knightAttrs = Arrays.asList(gameResponseItem.getAttack(),
+        final List<Integer> knightAttrs = Arrays.asList(gameResponseItem.getAttack(),
             gameResponseItem.getArmor(), gameResponseItem.getAgility(), gameResponseItem.getEndurance());
+        final Integer[] indexes = { 0, 1, 2, 3 };
+        
+        Arrays.sort(indexes, new Comparator<Integer>() {
+            @Override public int compare(final Integer o1, final Integer o2) {
+                return Integer.compare(knightAttrs.get(o1), knightAttrs.get(o2));
+            }
+        });
+        int maxIndex = indexes[3];
+        int secondMaxIndex = indexes[2];
+        int thirdMaxIndex = indexes[1];
+        int forthMaxIndex = indexes[0];
         int maxItem = Collections.max(knightAttrs);
         int countMax = 0;
-        int maxIndex = 0;
         int maxIndex1 = 0;
         int maxIndex2 = 0;
         int index = 0;
@@ -108,13 +121,9 @@ public class AsyncClient {
                     maxIndex1 = maxIndex;
                     maxIndex2 = index;
                 }
-                maxIndex = index;
             }
             index += 1;
         }
-        int secondMaxIndex = 0;
-        int thirdMaxIndex = 0;
-        int forthMaxIndex = 0;
         int[] dragonAttrs = new int[] {0, 0, 0, 0};
         if (countMax == 1) {
             dragonAttrs[maxIndex] = 10;
@@ -124,15 +133,19 @@ public class AsyncClient {
         }
         if (countMax == 2) {
             dragonAttrs[secondMaxIndex] = 10;
-            dragonAttrs[maxIndex1] = 6;
-            dragonAttrs[maxIndex2] = 3;
-            dragonAttrs[forthMaxIndex] = 1;
+            dragonAttrs[maxIndex1] = 5;
+            dragonAttrs[maxIndex2] = 4;
+            dragonAttrs[thirdMaxIndex] = 1;
         } else {
             dragonAttrs[maxIndex] = 10;
             dragonAttrs[secondMaxIndex] = 4;
             dragonAttrs[thirdMaxIndex] = 4;
             dragonAttrs[forthMaxIndex] = 2;
         }
+            System.out.println("maxIndex - " + maxIndex);
+            System.out.println("secondMaxIndex - " + secondMaxIndex);
+            System.out.println("thirdMaxIndex - " + thirdMaxIndex);
+            System.out.println("forthMaxIndex - " + forthMaxIndex);
         final SolutionRequest request = SolutionRequest.builder()
             .scale(dragonAttrs[0])
             .claw(dragonAttrs[1])

@@ -35,28 +35,47 @@ public class GameTest {
 
     @Test
     public void testGame() throws Exception {
-        final GameResponse game = client.getGame().get();
-        game.getGameResponseItem();
-        game.getGameResponseItem().getName();
-        game.getGameResponseItem().getAttack();
-        game.getGameResponseItem().getArmor();
-        game.getGameResponseItem().getAgility();
-        game.getGameResponseItem().getEndurance();
-        System.out.println(game);
-        final SolutionRequest request = SolutionRequest.builder()
-            .scale(5)
-            .claw(5)
-            .wing(5)
-            .fire(5)
-            .build();
-        WeatherResponse weatherResponse = client.getWeather(game.getGameId()).get();
-        weatherResponse.getTime();
-        weatherResponse.getCode();
-        weatherResponse.getMessage();
-        System.out.println(weatherResponse);
-        SolutionResponse response = client.putGame(game.getGameId(), request).get();
-        response.getStatus();
-        response.getMessage();
-        System.out.println(response);
+        int victoryCount = 0;
+        for (int gameIndex = 0; gameIndex < 10; gameIndex += 1) {
+            final GameResponse game = client.getGame().get();
+            game.getGameResponseItem();
+            game.getGameResponseItem().getName();
+            game.getGameResponseItem().getAttack();
+            game.getGameResponseItem().getArmor();
+            game.getGameResponseItem().getAgility();
+            game.getGameResponseItem().getEndurance();
+            System.out.println(game);
+            WeatherResponse weatherResponse = client.getWeather(game.getGameId()).get();
+            weatherResponse.getTime();
+            weatherResponse.getCode();
+            weatherResponse.getMessage();
+            System.out.println(weatherResponse);
+            SolutionRequest request = null;
+            if ("FUNDEFINEDG".equals(weatherResponse.getCode()) || "SRO".equals(weatherResponse.getCode())) {
+                request = SolutionRequest.builder()
+                .scale(5)
+                .claw(5)
+                .wing(5)
+                .fire(5)
+                .build();
+            } else {
+                try {
+                request = client.solveGame(game.getGameResponseItem());
+                } catch (Exception ignored) {ignored.printStackTrace();};
+            }
+            if (request == null) {
+                System.out.println("Solution not found");
+                continue;
+            }
+            System.out.println(request);
+            SolutionResponse response = client.putGame(game.getGameId(), request).get();
+            response.getStatus();
+            response.getMessage();
+            if ("Victory".equals(response.getStatus())) {
+                victoryCount += 1;
+            }
+            System.out.println(response);
+        }
+        System.out.println("victoryCount - " + victoryCount);
     }
 }

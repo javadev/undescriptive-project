@@ -32,6 +32,11 @@ public class SolutionRequest implements HasParams {
         } };
     }
     
+    @Override
+    public String toString() {
+        return "SolutionRequest[" + scale + ", " + claw + ", " + wing + ", " + fire + "]";
+    }
+
     public static Builder builder() {
         return new Builder();
     }
