@@ -1,0 +1,20 @@
+GameResponse{gameId=2947999, knight={name: Sir. Adam Wong of Nova Scotia, attack: 5, armor: 0, agility: 7, endurance: 8}}
+[4, 1, 5, 10]
+GameResponse{gameId=3157894, knight={name: Sir. Chester Young of Quebec, attack: 3, armor: 2, agility: 7, endurance: 8}}
+[4, 1, 5, 10]
+GameResponse{gameId=5348701, knight={name: Sir. Lester Peterson of Alberta, attack: 0, armor: 6, agility: 7, endurance: 7}}
+[2, 10, 4, 4]
+GameResponse{gameId=1094212, knight={name: Sir. Jeremiah Andrews of Nova Scotia, attack: 1, armor: 4, agility: 7, endurance: 8}}
+[2, 3, 5, 10]
+GameResponse{gameId=6360358, knight={name: Sir. Gilbert Burton of Ontario, attack: 6, armor: 7, agility: 6, endurance: 1}}
+[6, 9, 4, 1]
+GameResponse{gameId=6635819, knight={name: Sir. Andrew Thornton of Alberta, attack: 6, armor: 0, agility: 8, endurance: 6}}
+[5, 1, 10, 4]
+GameResponse{gameId=5547433, knight={name: Sir. Aiden Blair of Yukon, attack: 0, armor: 6, agility: 6, endurance: 8}}
+[2, 4, 4, 10]
+GameResponse{gameId=9891585, knight={name: Sir. Kevin Nichols of New Brunswick, attack: 1, armor: 6, agility: 7, endurance: 6}}
+[3, 4, 9, 4]
+GameResponse{gameId=5451617, knight={name: Sir. Chad Morris of Newfoundland and Labrador, attack: 2, armor: 2, agility: 8, endurance: 8}}
+[3, 1, 10, 6]
+GameResponse{gameId=3402835, knight={name: Sir. Dale Walters of Nova Scotia, attack: 8, armor: 6, agility: 0, endurance: 6}}
+[10, 5, 1, 4]
