@@ -87,8 +87,8 @@ public class AsyncClient {
         return execute(SolutionResponse.class, put("/api/game/" + id + "/solution", gameRequest));
     }
 
-    public ListenableFuture<SolutionResponse> getWeather(Integer id) {
-        return execute(SolutionResponse.class, get("/weather/api/report/" + id));
+    public ListenableFuture<WeatherResponse> getWeather(Integer id) {
+        return execute(WeatherResponse.class, get(WEATHER_URL + id));
     }
 
     private static <T> ListenableFuture<T> execute(
