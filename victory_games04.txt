@@ -1,0 +1,18 @@
+GameResponse{gameId=3872158, knight={name: Sir. Stephen Yates of Quebec, attack: 3, armor: 1, agility: 8, endurance: 8}}
+[3, 1, 10, 6]
+GameResponse{gameId=9971916, knight={name: Sir. Adrian Brown of Prince Edward Island, attack: 5, armor: 6, agility: 7, endurance: 2}}
+[6, 4, 9, 1]
+GameResponse{gameId=2480579, knight={name: Sir. Floyd Schwartz of Nunavut, attack: 5, armor: 4, agility: 5, endurance: 6}}
+[6, 3, 3, 8]
+GameResponse{gameId=5594968, knight={name: Sir. Justin Holt of Northwest Territories, attack: 4, armor: 3, agility: 7, endurance: 6}}
+[5, 2, 9, 4]
+GameResponse{gameId=5689042, knight={name: Sir. Scott Carlson of Northwest Territories, attack: 8, armor: 6, agility: 0, endurance: 6}}
+[5, 5, 5, 5]
+GameResponse{gameId=8035004, knight={name: Sir. Justin Morales of Newfoundland and Labrador, attack: 5, armor: 1, agility: 6, endurance: 8}}
+[5, 1, 4, 10]
+GameResponse{gameId=8308975, knight={name: Sir. Willie McLaughlin of British Columbia, attack: 5, armor: 2, agility: 5, endurance: 8}}
+[6, 9, 3, 2]
+GameResponse{gameId=2696543, knight={name: Sir. Theodore Cook of Nunavut, attack: 7, armor: 4, agility: 1, endurance: 8}}
+[6, 3, 1, 10]
+GameResponse{gameId=782715, knight={name: Sir. Edwin Buchanan of New Brunswick, attack: 7, armor: 5, agility: 7, endurance: 1}}
+[10, 5, 4, 1]

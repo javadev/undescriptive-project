@@ -18,6 +18,9 @@ import com.ning.http.client.Realm;
 import com.ning.http.client.Response;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 public class AsyncClient {
@@ -85,8 +88,49 @@ public class AsyncClient {
         return execute(GameResponse.class, get("/api/game"));
     }
 
-    public ListenableFuture<SolutionResponse> putGame(Integer id, SolutionRequest gameRequest) {
-        return execute(SolutionResponse.class, put("/api/game/" + id + "/solution", gameRequest));
+    public ListenableFuture<SolutionResponse> putGame(Integer id, SolutionRequest solutionRequest) {
+        return execute(SolutionResponse.class, put("/api/game/" + id + "/solution", solutionRequest));
+    }
+
+    public SolutionRequest solveGame(GameResponseItem gameResponseItem) {
+        List<Integer> knightAttrs = Arrays.asList(gameResponseItem.getAttack(),
+            gameResponseItem.getArmor(), gameResponseItem.getAgility(), gameResponseItem.getEndurance());
+        int maxItem = Collections.max(knightAttrs);
+        int countMax = 0;
+        int maxIndex = 0;
+        int index = 0;
+        for (Integer attr : knightAttrs) {
+            if (attr.equals(maxItem)) {
+                countMax += 1;
+                maxIndex = index;
+            }
+            index += 1;
+        }
+        int secondMaxIndex = 0;
+        int thirdMaxIndex = 0;
+        int forthMaxIndex = 0;
+        int maxIndex1 = 0;
+        int maxIndex2 = 0;
+        int[] dragonAttrs = new int[] {0, 0, 0, 0};
+        if (countMax == 1) {
+            dragonAttrs[maxIndex] = knightAttrs.get(maxIndex).intValue() + 2;
+            dragonAttrs[secondMaxIndex] = knightAttrs.get(secondMaxIndex).intValue() - 2;
+            dragonAttrs[thirdMaxIndex] = 20 - (dragonAttrs[maxIndex] + dragonAttrs[secondMaxIndex] + 1);
+            dragonAttrs[forthMaxIndex] = 1;
+        }
+        if (countMax == 2) {
+            dragonAttrs[secondMaxIndex] = 10;
+            dragonAttrs[maxIndex1] = 4;
+            dragonAttrs[maxIndex2] = 4;
+            dragonAttrs[forthMaxIndex] = 2;
+        }
+        final SolutionRequest request = SolutionRequest.builder()
+            .scale(dragonAttrs[0])
+            .claw(dragonAttrs[1])
+            .wing(dragonAttrs[2])
+            .fire(dragonAttrs[3])
+            .build();
+        return request;
     }
 
     public ListenableFuture<WeatherResponse> getWeather(Integer id) {
