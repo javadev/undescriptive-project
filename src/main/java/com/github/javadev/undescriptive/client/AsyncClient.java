@@ -14,7 +14,6 @@ import com.ning.http.client.AsyncHttpClient;
 import com.ning.http.client.AsyncHttpClient.BoundRequestBuilder;
 import com.ning.http.client.AsyncHttpClientConfig;
 import com.ning.http.client.AsyncHttpClientConfig.Builder;
-import com.ning.http.client.FluentStringsMap;
 import com.ning.http.client.Realm;
 import com.ning.http.client.Response;
 
@@ -83,7 +82,7 @@ public class AsyncClient {
         return execute(GameResponse.class, get(""));
     }
 
-    public ListenableFuture<SolutionResponse> putGame(Integer id, GameRequest gameRequest) {
+    public ListenableFuture<SolutionResponse> putGame(Integer id, SolutionRequest gameRequest) {
         return execute(SolutionResponse.class, put("/" + id + "/solution", gameRequest));
     }
 

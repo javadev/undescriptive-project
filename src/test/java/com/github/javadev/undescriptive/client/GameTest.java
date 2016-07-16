@@ -1,7 +1,7 @@
 package com.github.javadev.undescriptive.client;
 
 import ch.qos.logback.classic.Level;
-import com.github.javadev.undescriptive.protocol.request.GameRequest;
+import com.github.javadev.undescriptive.protocol.request.SolutionRequest;
 import com.github.javadev.undescriptive.protocol.response.GameResponse;
 import com.github.javadev.undescriptive.protocol.response.SolutionResponse;
 import org.junit.Test;
@@ -22,11 +22,12 @@ public class GameTest {
     public void testGame() throws Exception {
         final GameResponse game = client.getGame().get();
         System.out.println(game);
-        final GameRequest request = new GameRequest();
-        request.scale = 5;
-        request.claw = 5;
-        request.wing = 5;
-        request.fire = 5;
+        final SolutionRequest request = SolutionRequest.builder()
+            .scale(5)
+            .claw(5)
+            .wing(5)
+            .fire(5)
+            .build();
         SolutionResponse response = client.putGame(game.getGameId(), request).get();
         System.out.println(response);
     }
