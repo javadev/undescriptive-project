@@ -51,17 +51,23 @@ public class GameTest {
             weatherResponse.getMessage();
             System.out.println(weatherResponse);
             SolutionRequest request = null;
-            if ("FUNDEFINEDG".equals(weatherResponse.getCode()) || "SRO".equals(weatherResponse.getCode())) {
+            if ("FUNDEFINEDG".equals(weatherResponse.getCode()) || "T E".equals(weatherResponse.getCode())) {
                 request = SolutionRequest.builder()
                 .scale(5)
                 .claw(5)
                 .wing(5)
                 .fire(5)
                 .build();
+            } else if ("HVA".equals(weatherResponse.getCode())) {
+                SolutionRequest request2 = client.solveGame(game.getGameResponseItem());
+                request = SolutionRequest.builder()
+                .scale(10)
+                .claw(10)
+                .wing(0)
+                .fire(0)
+                .build();
             } else {
-                try {
                 request = client.solveGame(game.getGameResponseItem());
-                } catch (Exception ignored) {ignored.printStackTrace();};
             }
             if (request == null) {
                 System.out.println("Solution not found");

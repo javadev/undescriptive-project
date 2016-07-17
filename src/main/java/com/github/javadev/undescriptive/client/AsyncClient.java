@@ -102,18 +102,55 @@ public class AsyncClient {
         
         Arrays.sort(indexes, new Comparator<Integer>() {
             @Override public int compare(final Integer o1, final Integer o2) {
-                return Integer.valueOf(knightAttrs.get(o1)).compareTo(Integer.valueOf(knightAttrs.get(o2)));
+                return knightAttrs.get(o1).compareTo(knightAttrs.get(o2));
             }
         });
+        int[][] solutions = {
+        {8, 8, 4, 0}, {10, 6, 3, 1},
+        {8, 7, 5, 0}, {10, 5, 4, 1},
+        {8, 6, 6, 0}, {10, 4, 4, 2},
+        {7, 7, 6, 0}, {4, 4, 10, 2},
+        {8, 8, 3, 1}, {10, 6, 2, 2},
+        {8, 7, 4, 1}, {10, 5, 4, 1},
+        {8, 6, 5, 1}, {10, 4, 5, 1},
+        {7, 7, 5, 1}, {4, 4, 10, 2},
+        {7, 6, 6, 1}, {9, 4, 4, 3},
+        {8, 8, 2, 2}, {10, 6, 3, 1},
+        {8, 7, 3, 2}, {10, 5, 4, 1},
+        {8, 6, 4, 2}, {10, 4, 3, 3},
+        {7, 7, 4, 2}, {10, 5, 4, 1},
+        {8, 5, 5, 2}, {10, 5, 4, 1},
+        {7, 6, 5, 2}, {10, 4, 4, 2},
+        {6, 6, 6, 2}, {10, 4, 3, 3},
+        {8, 6, 3, 3}, {10, 4, 4, 2},
+        {7, 7, 3, 3}, {10, 4, 4, 2},
+        {8, 5, 4, 3}, {10, 4, 4, 2},
+        {7, 6, 4, 3}, {9, 4, 5, 2},
+        {7, 5, 5, 3}, {9, 5, 4, 2},
+        {6, 6, 5, 3}, {8, 5, 4, 3},
+        {8, 4, 4, 4}, {10, 4, 3, 3},
+        {7, 5, 4, 4}, {10, 4, 3, 3},
+        {6, 6, 4, 4}, {10, 4, 3, 3},
+        {6, 5, 5, 4}, {10, 4, 3, 3},
+        {5, 5, 5, 5}, {10, 4, 3, 3}
+        };
         int maxIndex = indexes[3];
         int secondMaxIndex = indexes[2];
         int thirdMaxIndex = indexes[1];
         int forthMaxIndex = indexes[0];
         int[] dragonAttrs = new int[] {0, 0, 0, 0};
-        dragonAttrs[maxIndex] = 10;
-        dragonAttrs[secondMaxIndex] = 4;
-        dragonAttrs[thirdMaxIndex] = 4;
-        dragonAttrs[forthMaxIndex] = 2;
+        for (int index = 0; index < solutions.length; index += 2) {
+            if (knightAttrs.get(maxIndex) == solutions[index][0]
+                && knightAttrs.get(secondMaxIndex) == solutions[index][1]
+                && knightAttrs.get(thirdMaxIndex) == solutions[index][2]
+                && knightAttrs.get(forthMaxIndex) == solutions[index][3]) {
+                dragonAttrs[maxIndex] = solutions[index + 1][0];
+                dragonAttrs[secondMaxIndex] = solutions[index + 1][1];
+                dragonAttrs[thirdMaxIndex] = solutions[index + 1][2];
+                dragonAttrs[forthMaxIndex] = solutions[index + 1][3];
+                break;
+            }
+        }
         final SolutionRequest request = SolutionRequest.builder()
             .scale(dragonAttrs[0])
             .claw(dragonAttrs[1])
