@@ -50,7 +50,7 @@ public class GameTest {
             weatherResponse.getCode();
             weatherResponse.getMessage();
             System.out.println(weatherResponse);
-            final SolutionRequest request = null;
+            final SolutionRequest request;
             if ("FUNDEFINEDG".equals(weatherResponse.getCode()) || "T E".equals(weatherResponse.getCode())) {
                 request = SolutionRequest.builder()
                 .scale(5)
