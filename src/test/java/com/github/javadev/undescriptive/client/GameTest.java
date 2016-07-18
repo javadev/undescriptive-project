@@ -50,7 +50,7 @@ public class GameTest {
             weatherResponse.getCode();
             weatherResponse.getMessage();
             System.out.println(weatherResponse);
-            SolutionRequest request = null;
+            final SolutionRequest request = null;
             if ("FUNDEFINEDG".equals(weatherResponse.getCode()) || "T E".equals(weatherResponse.getCode())) {
                 request = SolutionRequest.builder()
                 .scale(5)
@@ -59,7 +59,6 @@ public class GameTest {
                 .fire(5)
                 .build();
             } else if ("HVA".equals(weatherResponse.getCode())) {
-                SolutionRequest request2 = client.solveGame(game.getGameResponseItem());
                 request = SolutionRequest.builder()
                 .scale(10)
                 .claw(10)
@@ -68,10 +67,6 @@ public class GameTest {
                 .build();
             } else {
                 request = client.solveGame(game.getGameResponseItem());
-            }
-            if (request == null) {
-                System.out.println("Solution not found");
-                continue;
             }
             System.out.println(request);
             SolutionResponse response = client.putGame(game.getGameId(), request).get();
