@@ -19,12 +19,9 @@ import com.ning.http.client.Response;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 public class AsyncClient {
     private static final String BASE_URL = "http://www.dragonsofmugloar.com";
@@ -178,8 +175,8 @@ public class AsyncClient {
     }
 
     private static class GuavaFutureConverter<T> extends AsyncCompletionHandler<T> {
-        final Class<T> clazz;
-        final SettableFuture<T> guavaFut;
+        private final Class<T> clazz;
+        private final SettableFuture<T> guavaFut;
 
         public GuavaFutureConverter(
                 final Class<T> clazz,
