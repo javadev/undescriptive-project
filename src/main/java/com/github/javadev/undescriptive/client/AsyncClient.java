@@ -34,6 +34,36 @@ public class AsyncClient {
 
     private final static XmlMapper XML_MAPPER = new XmlMapper();
 
+    private static final int[][] SOLUTIONS = {
+        {8, 8, 4, 0}, {10, 6, 3, 1},
+        {8, 7, 5, 0}, {10, 5, 4, 1},
+        {8, 6, 6, 0}, {10, 4, 4, 2},
+        {7, 7, 6, 0}, {4, 4, 10, 2},
+        {8, 8, 3, 1}, {10, 6, 2, 2},
+        {8, 7, 4, 1}, {10, 5, 4, 1},
+        {8, 6, 5, 1}, {10, 4, 5, 1},
+        {7, 7, 5, 1}, {4, 4, 10, 2},
+        {7, 6, 6, 1}, {9, 4, 4, 3},
+        {8, 8, 2, 2}, {10, 6, 3, 1},
+        {8, 7, 3, 2}, {10, 5, 4, 1},
+        {8, 6, 4, 2}, {10, 4, 3, 3},
+        {7, 7, 4, 2}, {10, 5, 4, 1},
+        {8, 5, 5, 2}, {10, 5, 4, 1},
+        {7, 6, 5, 2}, {10, 4, 4, 2},
+        {6, 6, 6, 2}, {10, 4, 3, 3},
+        {8, 6, 3, 3}, {10, 4, 4, 2},
+        {7, 7, 3, 3}, {10, 4, 4, 2},
+        {8, 5, 4, 3}, {10, 4, 4, 2},
+        {7, 6, 4, 3}, {9, 4, 5, 2},
+        {7, 5, 5, 3}, {9, 5, 4, 2},
+        {6, 6, 5, 3}, {8, 5, 4, 3},
+        {8, 4, 4, 4}, {10, 4, 3, 3},
+        {7, 5, 4, 4}, {10, 4, 3, 3},
+        {6, 6, 4, 4}, {10, 4, 3, 3},
+        {6, 5, 5, 4}, {10, 4, 3, 3},
+        {5, 5, 5, 5}, {10, 4, 3, 3}
+        };
+
     private final AsyncHttpClient httpClient;
     private final String baseUrl;
 
@@ -88,11 +118,27 @@ public class AsyncClient {
         return execute(GameResponse.class, get("/api/game"));
     }
 
-    public ListenableFuture<SolutionResponse> putGame(Integer id, SolutionRequest solutionRequest) {
+    public ListenableFuture<SolutionResponse> sendSolution(Integer id, SolutionRequest solutionRequest) {
         return execute(SolutionResponse.class, put("/api/game/" + id + "/solution", solutionRequest));
     }
 
-    public SolutionRequest solveGame(GameResponseItem gameResponseItem) {
+    public SolutionRequest generateGameSolution(GameResponseItem gameResponseItem, WeatherResponse weatherResponse) {
+        if ("T E".equals(weatherResponse.getCode())) {
+            return SolutionRequest.builder()
+                .scale(5)
+                .claw(5)
+                .wing(5)
+                .fire(5)
+                .build();
+        } else if ("HVA".equals(weatherResponse.getCode())) {
+            return SolutionRequest.builder()
+                .scale(10)
+                .claw(10)
+                .wing(0)
+                .fire(0)
+                .build();
+        }
+
         final List<Integer> knightAttrs = Arrays.asList(gameResponseItem.getAttack(),
             gameResponseItem.getArmor(), gameResponseItem.getAgility(), gameResponseItem.getEndurance());
         final Integer[] indexes = { 0, 1, 2, 3 };
@@ -102,49 +148,20 @@ public class AsyncClient {
                 return knightAttrs.get(o1).compareTo(knightAttrs.get(o2));
             }
         });
-        int[][] solutions = {
-        {8, 8, 4, 0}, {10, 6, 3, 1},
-        {8, 7, 5, 0}, {10, 5, 4, 1},
-        {8, 6, 6, 0}, {10, 4, 4, 2},
-        {7, 7, 6, 0}, {4, 4, 10, 2},
-        {8, 8, 3, 1}, {10, 6, 2, 2},
-        {8, 7, 4, 1}, {10, 5, 4, 1},
-        {8, 6, 5, 1}, {10, 4, 5, 1},
-        {7, 7, 5, 1}, {4, 4, 10, 2},
-        {7, 6, 6, 1}, {9, 4, 4, 3},
-        {8, 8, 2, 2}, {10, 6, 3, 1},
-        {8, 7, 3, 2}, {10, 5, 4, 1},
-        {8, 6, 4, 2}, {10, 4, 3, 3},
-        {7, 7, 4, 2}, {10, 5, 4, 1},
-        {8, 5, 5, 2}, {10, 5, 4, 1},
-        {7, 6, 5, 2}, {10, 4, 4, 2},
-        {6, 6, 6, 2}, {10, 4, 3, 3},
-        {8, 6, 3, 3}, {10, 4, 4, 2},
-        {7, 7, 3, 3}, {10, 4, 4, 2},
-        {8, 5, 4, 3}, {10, 4, 4, 2},
-        {7, 6, 4, 3}, {9, 4, 5, 2},
-        {7, 5, 5, 3}, {9, 5, 4, 2},
-        {6, 6, 5, 3}, {8, 5, 4, 3},
-        {8, 4, 4, 4}, {10, 4, 3, 3},
-        {7, 5, 4, 4}, {10, 4, 3, 3},
-        {6, 6, 4, 4}, {10, 4, 3, 3},
-        {6, 5, 5, 4}, {10, 4, 3, 3},
-        {5, 5, 5, 5}, {10, 4, 3, 3}
-        };
         int maxIndex = indexes[3];
         int secondMaxIndex = indexes[2];
         int thirdMaxIndex = indexes[1];
         int forthMaxIndex = indexes[0];
         int[] dragonAttrs = new int[] {0, 0, 0, 0};
-        for (int index = 0; index < solutions.length; index += 2) {
-            if (knightAttrs.get(maxIndex) == solutions[index][0]
-                && knightAttrs.get(secondMaxIndex) == solutions[index][1]
-                && knightAttrs.get(thirdMaxIndex) == solutions[index][2]
-                && knightAttrs.get(forthMaxIndex) == solutions[index][3]) {
-                dragonAttrs[maxIndex] = solutions[index + 1][0];
-                dragonAttrs[secondMaxIndex] = solutions[index + 1][1];
-                dragonAttrs[thirdMaxIndex] = solutions[index + 1][2];
-                dragonAttrs[forthMaxIndex] = solutions[index + 1][3];
+        for (int index = 0; index < SOLUTIONS.length; index += 2) {
+            if (knightAttrs.get(maxIndex) == SOLUTIONS[index][0]
+                && knightAttrs.get(secondMaxIndex) == SOLUTIONS[index][1]
+                && knightAttrs.get(thirdMaxIndex) == SOLUTIONS[index][2]
+                && knightAttrs.get(forthMaxIndex) == SOLUTIONS[index][3]) {
+                dragonAttrs[maxIndex] = SOLUTIONS[index + 1][0];
+                dragonAttrs[secondMaxIndex] = SOLUTIONS[index + 1][1];
+                dragonAttrs[thirdMaxIndex] = SOLUTIONS[index + 1][2];
+                dragonAttrs[forthMaxIndex] = SOLUTIONS[index + 1][3];
                 break;
             }
         }

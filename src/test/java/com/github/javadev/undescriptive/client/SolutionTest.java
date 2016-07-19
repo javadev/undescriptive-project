@@ -11,7 +11,9 @@ import org.junit.BeforeClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class GameTest {
+import static org.junit.Assert.assertEquals;
+
+public class SolutionTest {
     protected final static AsyncClient client = AsyncClient.createDefault();
 
     @BeforeClass
@@ -34,9 +36,9 @@ public class GameTest {
     }
 
     @Test
-    public void testGame() throws Exception {
+    public void testSolution() throws Exception {
         int victoryCount = 0;
-        for (int gameIndex = 0; gameIndex < 10; gameIndex += 1) {
+        for (int gameIndex = 0; gameIndex < 100; gameIndex += 1) {
             final GameResponse game = client.getGame().get();
             game.getGameResponseItem();
             game.getGameResponseItem().getName();
@@ -50,26 +52,9 @@ public class GameTest {
             weatherResponse.getCode();
             weatherResponse.getMessage();
             System.out.println(weatherResponse);
-            final SolutionRequest request;
-            if ("FUNDEFINEDG".equals(weatherResponse.getCode()) || "T E".equals(weatherResponse.getCode())) {
-                request = SolutionRequest.builder()
-                .scale(5)
-                .claw(5)
-                .wing(5)
-                .fire(5)
-                .build();
-            } else if ("HVA".equals(weatherResponse.getCode())) {
-                request = SolutionRequest.builder()
-                .scale(10)
-                .claw(10)
-                .wing(0)
-                .fire(0)
-                .build();
-            } else {
-                request = client.solveGame(game.getGameResponseItem());
-            }
+            final SolutionRequest request = client.generateGameSolution(game.getGameResponseItem(), weatherResponse);
             System.out.println(request);
-            SolutionResponse response = client.putGame(game.getGameId(), request).get();
+            SolutionResponse response = client.sendSolution(game.getGameId(), request).get();
             response.getStatus();
             response.getMessage();
             if ("Victory".equals(response.getStatus())) {
