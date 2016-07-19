@@ -22,14 +22,14 @@ public class SolutionRequest implements HasParams {
     }
 
     public Map<String, Object> getParams() {
-        return new LinkedHashMap<String, Object>() { {
-            put("dragon", new LinkedHashMap<String, Object>() { {
-                put("scaleThickness", scale);
-                put("clawSharpness", claw);
-                put("wingStrength", wing);
-                put("fireBreath", fire);
-            } });
-        } };
+        Map<String, Object> params = new LinkedHashMap<String, Object>();
+        Map<String, Object> dragonParams = new LinkedHashMap<String, Object>();
+        dragonParams.put("scaleThickness", scale);
+        dragonParams.put("clawSharpness", claw);
+        dragonParams.put("wingStrength", wing);
+        dragonParams.put("fireBreath", fire);
+        params.put("dragon", dragonParams);
+        return params;
     }
     
     @Override
