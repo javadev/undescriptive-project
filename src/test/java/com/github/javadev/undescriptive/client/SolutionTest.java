@@ -11,6 +11,8 @@ import org.junit.BeforeClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static org.junit.Assert.assertEquals;
+
 public class SolutionTest {
     protected final static AsyncClient client = AsyncClient.createDefault();
 
@@ -36,6 +38,7 @@ public class SolutionTest {
     @Test
     public void testSolution() throws Exception {
         int victoryCount = 0;
+        int stormCount = 0;
         for (int gameIndex = 0; gameIndex < 100; gameIndex += 1) {
             final GameResponse game = client.getGame().get();
             game.getGameResponseItem();
@@ -57,9 +60,12 @@ public class SolutionTest {
             response.getMessage();
             if ("Victory".equals(response.getStatus())) {
                 victoryCount += 1;
+            } else if ("SRO".equals(weatherResponse.getCode())) {
+                stormCount += 1;
             }
             System.out.println(response);
         }
         System.out.println("victoryCount - " + victoryCount);
+        assertEquals("victoryCount + stormCount should be 100", 100, victoryCount + stormCount);
     }
 }
