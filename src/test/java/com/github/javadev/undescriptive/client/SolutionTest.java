@@ -1,5 +1,9 @@
 package com.github.javadev.undescriptive.client;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.*;
 import ch.qos.logback.classic.Level;
 import com.github.javadev.undescriptive.protocol.request.SolutionRequest;
 import com.github.javadev.undescriptive.protocol.response.GameResponse;
@@ -37,35 +41,44 @@ public class SolutionTest {
 
     @Test
     public void testSolution() throws Exception {
-        int victoryCount = 0;
-        int stormCount = 0;
-        for (int gameIndex = 0; gameIndex < 100; gameIndex += 1) {
+        final AtomicInteger victoryCount = new AtomicInteger();
+        final AtomicInteger stormCount = new AtomicInteger();
+        final ExecutorService executor = Executors.newFixedThreadPool(100);
+        final List<Callable<Object>> list = new ArrayList<Callable<Object>>();
+        for (int gameIndex = 0; gameIndex < 10000; gameIndex += 1) {
+        list.add(new Callable<Object>() { public Object call() {
+            try {
             final GameResponse game = client.getGame().get();
+            game.toString();
             game.getGameResponseItem();
             game.getGameResponseItem().getName();
             game.getGameResponseItem().getAttack();
             game.getGameResponseItem().getArmor();
             game.getGameResponseItem().getAgility();
             game.getGameResponseItem().getEndurance();
-            System.out.println(game);
-            WeatherResponse weatherResponse = client.getWeather(game.getGameId()).get();
+            game.getGameResponseItem().toString();
+            final WeatherResponse weatherResponse = client.getWeather(game.getGameId()).get();
             weatherResponse.getTime();
             weatherResponse.getCode();
             weatherResponse.getMessage();
-            System.out.println(weatherResponse);
+            weatherResponse.toString();
             final SolutionRequest request = client.generateGameSolution(game.getGameResponseItem(), weatherResponse);
-            System.out.println(request);
+            request.toString();
             SolutionResponse response = client.sendSolution(game.getGameId(), request).get();
             response.getStatus();
             response.getMessage();
+            response.toString();
             if ("Victory".equals(response.getStatus())) {
-                victoryCount += 1;
+                victoryCount.getAndIncrement();
             } else if ("SRO".equals(weatherResponse.getCode())) {
-                stormCount += 1;
+                stormCount.getAndIncrement();
             }
-            System.out.println(response);
+            } catch (Exception ex) {
+            }
+            return null; } });
         }
-        System.out.println("victoryCount - " + victoryCount);
-        assertEquals("victoryCount + stormCount should be 100", 100, victoryCount + stormCount);
+        executor.invokeAll(list);
+        System.out.println("victoryCount - " + victoryCount.get());
+        assertEquals("victoryCount + stormCount should be 10000", 10000, victoryCount.get() + stormCount.get());
     }
 }
