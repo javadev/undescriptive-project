@@ -7,7 +7,6 @@ import com.ning.http.client.AsyncHttpClient;
 import com.ning.http.client.AsyncHttpClientConfig;
 import com.ning.http.client.FluentStringsMap;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -31,11 +30,6 @@ public class AsyncClientTest {
     @Mock private AsyncHttpClient.BoundRequestBuilder builder;
 
     private AsyncClient client;
-
-    @BeforeClass
-    public static void beforeClass() {
-        ((ch.qos.logback.classic.Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME)).setLevel(Level.INFO);
-    }
 
     @Before
     public void setUp() throws Exception {
