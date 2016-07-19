@@ -71,7 +71,7 @@
           <configuration>
               <archive>
                   <manifest>
-                      <mainClass>com.github.undescriptive.client.AsyncClient</mainClass>
+                      <mainClass>com.github.javadev.undescriptive.client.AsyncClient</mainClass>
                   </manifest>
               </archive>
           </configuration>

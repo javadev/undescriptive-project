@@ -224,4 +224,10 @@ public class AsyncClient {
             }
         }
     }
+
+    public static void main(String ... args) {
+        final String message = "Dragons of Mugloar solution.\n\n"
+            + "For docs, license, tests, and downloads, see: http://javadev.github.io/undescriptive-project";
+        System.out.println(message);
+    }
 }
