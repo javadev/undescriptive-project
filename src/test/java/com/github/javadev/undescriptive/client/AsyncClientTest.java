@@ -60,5 +60,10 @@ public class AsyncClientTest {
     public void closeAsynchronouslyTest() throws Exception {
         client.closeAsynchronously();
     }
+
+    @Test
+    public void main() throws Exception {
+        AsyncClient.main("test");
+    }
 }
 

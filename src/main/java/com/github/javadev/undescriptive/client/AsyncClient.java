@@ -227,7 +227,7 @@ public class AsyncClient {
 
     public static void main(String ... args) {
         final String message = "Dragons of Mugloar solution.\n\n"
-            + "For docs, license, tests, and downloads, see: http://javadev.github.io/undescriptive-project";
+            + "For docs, license, tests, and downloads, see: https://github.com/javadev/undescriptive-project";
         System.out.println(message);
     }
 }
