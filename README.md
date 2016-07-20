@@ -1,4 +1,6 @@
 # Dragons of Mugloar solution
+
+[![Join the chat at https://gitter.im/javadev/undescriptive-project](https://badges.gitter.im/javadev/undescriptive-project.svg)](https://gitter.im/javadev/undescriptive-project?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Simple java library to solve Dragons of Mugloar game.
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.javadev/Dragons-of-Mugloar-solution.svg)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.github.javadev%22%20AND%20a%3A%22Dragons-of-Mugloar-solution%22)
