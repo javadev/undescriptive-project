@@ -45,7 +45,7 @@ public class SolutionTest {
         final AtomicInteger stormCount = new AtomicInteger();
         final ExecutorService executor = Executors.newFixedThreadPool(100);
         final List<Callable<Object>> list = new ArrayList<Callable<Object>>();
-        for (int gameIndex = 0; gameIndex < 100000; gameIndex += 1) {
+        for (int gameIndex = 0; gameIndex < 30000; gameIndex += 1) {
         list.add(new Callable<Object>() { public Object call() {
             try {
             final GameResponse game = client.getGame().get();
@@ -79,6 +79,6 @@ public class SolutionTest {
         }
         executor.invokeAll(list);
         System.out.println("victoryCount - " + victoryCount.get());
-        assertEquals("victoryCount + stormCount should be 100000", 100000, victoryCount.get() + stormCount.get());
+        assertEquals("victoryCount + stormCount should be 30000", 30000, victoryCount.get() + stormCount.get());
     }
 }
