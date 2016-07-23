@@ -222,9 +222,8 @@ public class AsyncClient {
                     : MAPPER.readValue(response.getResponseBody(), clazz);
                 guavaFut.set(value);
                 return value;
-            } else {
-                throw new UnsupportedOperationException(response.getResponseBody());
             }
+            throw new UnsupportedOperationException(response.getStatusCode() + " - " + response.getResponseBody());
         }
     }
 

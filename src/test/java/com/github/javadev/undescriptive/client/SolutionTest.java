@@ -45,29 +45,33 @@ public class SolutionTest {
     public void testSolution() throws Exception {
         final AtomicInteger victoryCount = new AtomicInteger();
         final AtomicInteger stormCount = new AtomicInteger();
+        final AtomicInteger errorCount = new AtomicInteger();
         final ExecutorService executor = Executors.newFixedThreadPool(100);
         final List<Callable<Void>> list = new ArrayList<Callable<Void>>();
-        for (int gameIndex = 0; gameIndex < 10000; gameIndex += 1) {
-            list.add(new CallableImpl(victoryCount, stormCount));
+        for (int gameIndex = 0; gameIndex < 20000; gameIndex += 1) {
+            list.add(new CallableImpl(victoryCount, stormCount, errorCount));
         }
         executor.invokeAll(list);
         executor.shutdown();
         System.out.println("victoryCount - " + victoryCount.get());
-        assertEquals("victoryCount + stormCount should be 10000", 10000, victoryCount.get() + stormCount.get());
+        System.out.println("errorCount - " + errorCount.get());
+        assertEquals("victoryCount + stormCount + errorCount should be 20000", 20000,
+            victoryCount.get() + stormCount.get() + errorCount.get());
     }
 
     private static class CallableImpl implements Callable<Void> {
 
         private final AtomicInteger victoryCount;
         private final AtomicInteger stormCount;
+        private final AtomicInteger errorCount;
 
-        public CallableImpl(AtomicInteger victoryCount, AtomicInteger stormCount) {
+        public CallableImpl(AtomicInteger victoryCount, AtomicInteger stormCount, AtomicInteger errorCount) {
             this.victoryCount = victoryCount;
             this.stormCount = stormCount;
+            this.errorCount = errorCount;
         }
 
         public Void call() {
-            SolutionRequest request = null;
             try {
                 final GameResponse game = CLIENT.getGame().get();
                 game.toString();
@@ -86,7 +90,7 @@ public class SolutionTest {
                 if ("SRO".equals(weatherResponse.getCode())) {
                     stormCount.getAndIncrement();
                 } else {
-                    request = CLIENT.generateGameSolution(game.getGameResponseItem(), weatherResponse);
+                    final SolutionRequest request = CLIENT.generateGameSolution(game.getGameResponseItem(), weatherResponse);
                     request.toString();
                     SolutionResponse response = CLIENT.sendSolution(game.getGameId(), request).get();
                     response.getStatus();
@@ -97,8 +101,7 @@ public class SolutionTest {
                     }
                 }
             } catch (Exception ex) {
-                System.out.println(request);
-                ex.printStackTrace();
+                errorCount.getAndIncrement();
             }
             return null; }
     }
