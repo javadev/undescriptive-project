@@ -67,6 +67,7 @@ public class SolutionTest {
         }
 
         public Void call() {
+            SolutionRequest request = null;
             try {
                 final GameResponse game = CLIENT.getGame().get();
                 game.toString();
@@ -85,7 +86,7 @@ public class SolutionTest {
                 if ("SRO".equals(weatherResponse.getCode())) {
                     stormCount.getAndIncrement();
                 } else {
-                    final SolutionRequest request = CLIENT.generateGameSolution(game.getGameResponseItem(), weatherResponse);
+                    request = CLIENT.generateGameSolution(game.getGameResponseItem(), weatherResponse);
                     request.toString();
                     SolutionResponse response = CLIENT.sendSolution(game.getGameId(), request).get();
                     response.getStatus();
@@ -96,6 +97,8 @@ public class SolutionTest {
                     }
                 }
             } catch (Exception ex) {
+                System.out.println(request);
+                ex.printStackTrace();
             }
             return null; }
     }
