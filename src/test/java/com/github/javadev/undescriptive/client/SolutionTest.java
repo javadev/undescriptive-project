@@ -51,6 +51,7 @@ public class SolutionTest {
             list.add(new CallableImpl(victoryCount, stormCount));
         }
         executor.invokeAll(list);
+        executor.shutdown();
         System.out.println("victoryCount - " + victoryCount.get());
         assertEquals("victoryCount + stormCount should be 10000", 10000, victoryCount.get() + stormCount.get());
     }

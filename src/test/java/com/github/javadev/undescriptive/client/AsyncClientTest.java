@@ -6,6 +6,7 @@ import com.ning.http.client.AsyncHandler;
 import com.ning.http.client.AsyncHttpClient;
 import com.ning.http.client.AsyncHttpClientConfig;
 import com.ning.http.client.FluentStringsMap;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,8 +32,7 @@ public class AsyncClientTest {
     @Before
     public void setUp() throws Exception {
         final Constructor<AsyncClient> ctor = AsyncClient.class.getDeclaredConstructor(
-            AsyncHttpClient.class,
-            String.class);
+            AsyncHttpClient.class, String.class);
 
         ctor.setAccessible(true);
         this.client = ctor.newInstance(httpClient, BASE_URL);
@@ -40,7 +40,12 @@ public class AsyncClientTest {
         when(httpClient.prepareGet(anyString())).thenReturn(builder);
         when(builder.setQueryParameters(any(FluentStringsMap.class))).thenReturn(builder);
 
-        AsyncClient.create(new AsyncHttpClientConfig.Builder().build());
+        AsyncClient.create(new AsyncHttpClientConfig.Builder().build()).close();
+    }
+
+    @After
+    public void after() throws Exception {
+        client.close();
     }
 
     @Test(expected = ExecutionException.class)
