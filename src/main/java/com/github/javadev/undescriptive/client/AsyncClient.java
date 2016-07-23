@@ -5,10 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.github.javadev.undescriptive.protocol.request.HasParams;
+import com.github.javadev.undescriptive.protocol.request.SolutionRequest;
+import com.github.javadev.undescriptive.protocol.response.GameResponse;
+import com.github.javadev.undescriptive.protocol.response.GameResponseItem;
+import com.github.javadev.undescriptive.protocol.response.SolutionResponse;
+import com.github.javadev.undescriptive.protocol.response.WeatherResponse;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
-import com.github.javadev.undescriptive.protocol.request.*;
-import com.github.javadev.undescriptive.protocol.response.*;
 import com.ning.http.client.AsyncCompletionHandler;
 import com.ning.http.client.AsyncHttpClient;
 import com.ning.http.client.AsyncHttpClient.BoundRequestBuilder;
@@ -27,12 +31,12 @@ public class AsyncClient {
     private static final String BASE_URL = "http://www.dragonsofmugloar.com";
     private static final String WEATHER_URL = "/weather/api/report/";
 
-    private final static ObjectMapper MAPPER = new ObjectMapper()
+    private static final ObjectMapper MAPPER = new ObjectMapper()
         .registerModule(new JodaModule())
         .registerModule(new SimpleModule())
         .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-    private final static XmlMapper XML_MAPPER = new XmlMapper();
+    private static final XmlMapper XML_MAPPER = new XmlMapper();
 
     private static final int[][] SOLUTIONS = {
         {8, 8, 4, 0}, {10, 6, 3, 1},
@@ -108,8 +112,8 @@ public class AsyncClient {
         try {
             final String objectAsString = MAPPER.writeValueAsString(params);
             builder.addHeader("Content-Type", "application/json; charset=utf-8");
-            builder.setBody(objectAsString); 
-        } catch (Exception ignore) {            
+            builder.setBody(objectAsString);
+        } catch (Exception ignore) {
         }
         return builder;
     }
@@ -142,7 +146,7 @@ public class AsyncClient {
         final List<Integer> knightAttrs = Arrays.asList(gameResponseItem.getAttack(),
             gameResponseItem.getArmor(), gameResponseItem.getAgility(), gameResponseItem.getEndurance());
         final Integer[] indexes = { 0, 1, 2, 3 };
-        
+
         Arrays.sort(indexes, new Comparator<Integer>() {
             @Override public int compare(final Integer o1, final Integer o2) {
                 return knightAttrs.get(o1).compareTo(knightAttrs.get(o2));
@@ -184,8 +188,7 @@ public class AsyncClient {
         final SettableFuture<T> guavaFut = SettableFuture.create();
         try {
             request.execute(new GuavaFutureConverter<T>(clazz, guavaFut));
-        }
-        catch (final IOException e) {
+        } catch (final IOException e) {
             guavaFut.setException(e);
         }
         return guavaFut;
@@ -204,7 +207,7 @@ public class AsyncClient {
 
         private static boolean isSuccess(final Response response) {
             final int statusCode = response.getStatusCode();
-            return (statusCode > 199 && statusCode < 400);
+            return statusCode > 199 && statusCode < 400;
         }
 
         @Override

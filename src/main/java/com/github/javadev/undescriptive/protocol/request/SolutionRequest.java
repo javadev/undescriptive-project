@@ -8,7 +8,7 @@ public class SolutionRequest implements HasParams {
     private final Integer claw;
     private final Integer wing;
     private final Integer fire;
-    
+
     public SolutionRequest(
         final Integer scale,
         final Integer claw,
@@ -31,7 +31,7 @@ public class SolutionRequest implements HasParams {
         params.put("dragon", dragonParams);
         return params;
     }
-    
+
     @Override
     public String toString() {
         return "SolutionRequest[" + scale + ", " + claw + ", " + wing + ", " + fire + "]";
@@ -56,7 +56,7 @@ public class SolutionRequest implements HasParams {
     public Integer getFire() {
         return fire;
     }
-    
+
     public static class Builder {
         private Integer scale;
         private Integer claw;
@@ -70,22 +70,22 @@ public class SolutionRequest implements HasParams {
             this.scale = scale;
             return this;
         }
-        
+
         public Builder claw(final Integer claw) {
             this.claw = claw;
             return this;
         }
-        
+
         public Builder wing(final Integer wing) {
             this.wing = wing;
             return this;
         }
-        
+
         public Builder fire(final Integer fire) {
             this.fire = fire;
             return this;
         }
-        
+
         public SolutionRequest build() {
             return new SolutionRequest(scale, claw, wing, fire);
         }
