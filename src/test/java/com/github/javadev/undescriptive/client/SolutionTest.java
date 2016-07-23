@@ -82,16 +82,18 @@ public class SolutionTest {
                 weatherResponse.getCode();
                 weatherResponse.getMessage();
                 weatherResponse.toString();
-                final SolutionRequest request = CLIENT.generateGameSolution(game.getGameResponseItem(), weatherResponse);
-                request.toString();
-                SolutionResponse response = CLIENT.sendSolution(game.getGameId(), request).get();
-                response.getStatus();
-                response.getMessage();
-                response.toString();
-                if ("Victory".equals(response.getStatus())) {
-                    victoryCount.getAndIncrement();
-                } else if ("SRO".equals(weatherResponse.getCode())) {
+                if ("SRO".equals(weatherResponse.getCode())) {
                     stormCount.getAndIncrement();
+                } else {
+                    final SolutionRequest request = CLIENT.generateGameSolution(game.getGameResponseItem(), weatherResponse);
+                    request.toString();
+                    SolutionResponse response = CLIENT.sendSolution(game.getGameId(), request).get();
+                    response.getStatus();
+                    response.getMessage();
+                    response.toString();
+                    if ("Victory".equals(response.getStatus())) {
+                        victoryCount.getAndIncrement();
+                    }
                 }
             } catch (Exception ex) {
             }
