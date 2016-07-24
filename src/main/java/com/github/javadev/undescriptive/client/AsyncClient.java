@@ -218,6 +218,7 @@ public class AsyncClient implements GameClient {
                     }
                 }
             } catch (Exception ex) {
+                gameCounters.getErrorCount().getAndIncrement();
             }
             return null;
         }

@@ -1,8 +1,5 @@
 package com.github.javadev.undescriptive.client;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 import ch.qos.logback.classic.Level;
 import com.github.javadev.undescriptive.protocol.response.GameCounters;
 import com.github.javadev.undescriptive.protocol.request.SolutionRequest;
