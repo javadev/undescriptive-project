@@ -7,6 +7,7 @@ import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.github.javadev.undescriptive.protocol.request.HasParams;
 import com.github.javadev.undescriptive.protocol.request.SolutionRequest;
+import com.github.javadev.undescriptive.protocol.response.GameCounters;
 import com.github.javadev.undescriptive.protocol.response.GameResponse;
 import com.github.javadev.undescriptive.protocol.response.GameResponseItem;
 import com.github.javadev.undescriptive.protocol.response.SolutionResponse;
@@ -22,12 +23,17 @@ import com.ning.http.client.Realm;
 import com.ning.http.client.Response;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
-public class AsyncClient {
+public class AsyncClient implements GameClient {
     private static final String BASE_URL = "http://www.dragonsofmugloar.com";
     private static final String WEATHER_URL = "/weather/api/report/";
 
@@ -94,10 +100,12 @@ public class AsyncClient {
             new AsyncHttpClient(commonSetup(new Builder(config))), BASE_URL);
     }
 
+    @Override
     public void close() {
         this.httpClient.close();
     }
 
+    @Override
     public void closeAsynchronously() {
         this.httpClient.closeAsynchronously();
     }
@@ -118,14 +126,22 @@ public class AsyncClient {
         return builder;
     }
 
+    @Override
     public ListenableFuture<GameResponse> getGame() {
         return execute(GameResponse.class, get("/api/game"));
     }
 
+    @Override
+    public ListenableFuture<WeatherResponse> getWeather(Integer id) {
+        return execute(WeatherResponse.class, get(WEATHER_URL + id));
+    }
+
+    @Override
     public ListenableFuture<SolutionResponse> sendSolution(Integer id, SolutionRequest solutionRequest) {
         return execute(SolutionResponse.class, put("/api/game/" + id + "/solution", solutionRequest));
     }
 
+    @Override
     public SolutionRequest generateGameSolution(GameResponseItem gameResponseItem, WeatherResponse weatherResponse) {
         if ("T E".equals(weatherResponse.getCode())) {
             return SolutionRequest.builder()
@@ -178,8 +194,49 @@ public class AsyncClient {
         return request;
     }
 
-    public ListenableFuture<WeatherResponse> getWeather(Integer id) {
-        return execute(WeatherResponse.class, get(WEATHER_URL + id));
+    private static class CallableImpl implements Callable<Void> {
+
+        private final AsyncClient asyncClient;
+        private final GameCounters gameCounters;
+
+        public CallableImpl(AsyncClient asyncClient, GameCounters gameCounters) {
+            this.asyncClient = asyncClient;
+            this.gameCounters = gameCounters;
+        }
+
+        public Void call() {
+            try {
+                final GameResponse game = asyncClient.getGame().get();
+                final WeatherResponse weatherResponse = asyncClient.getWeather(game.getGameId()).get();
+                if ("SRO".equals(weatherResponse.getCode())) {
+                    gameCounters.getStormCount().getAndIncrement();
+                } else {
+                    final SolutionRequest request = asyncClient.generateGameSolution(game.getGameResponseItem(), weatherResponse);
+                    final SolutionResponse response = asyncClient.sendSolution(game.getGameId(), request).get();
+                    if ("Victory".equals(response.getStatus())) {
+                        gameCounters.getVictoryCount().getAndIncrement();
+                    }
+                }
+            } catch (Exception ex) {
+            }
+            return null;
+        }
+    }
+
+    @Override
+    public GameCounters getAndSolveGames(int amountOfGames) {
+        final GameCounters gameCounters = new GameCounters();
+        final ExecutorService executor = Executors.newFixedThreadPool(100);
+        final List<Callable<Void>> callables = new ArrayList<Callable<Void>>();
+        for (int gameIndex = 0; gameIndex < amountOfGames; gameIndex += 1) {
+            callables.add(new CallableImpl(this, gameCounters));
+        }
+        try {
+            executor.invokeAll(callables);
+        } catch (InterruptedException ex) {
+        }
+        executor.shutdown();
+        return gameCounters;
     }
 
     private static <T> ListenableFuture<T> execute(
