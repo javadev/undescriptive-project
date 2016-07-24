@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 import static org.junit.Assert.assertEquals;
 
 public class SolutionTest {
-    protected final static AsyncClient CLIENT = AsyncClient.createDefault();
+    private static final AsyncClient CLIENT = AsyncClient.createDefault();
 
     @BeforeClass
     public static void beforeClass() {
