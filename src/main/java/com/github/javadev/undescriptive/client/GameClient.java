@@ -8,8 +8,6 @@ import com.github.javadev.undescriptive.protocol.response.SolutionResponse;
 import com.github.javadev.undescriptive.protocol.response.WeatherResponse;
 import com.google.common.util.concurrent.ListenableFuture;
 
-import java.util.List;
-
 public interface GameClient {
     void close();
 
