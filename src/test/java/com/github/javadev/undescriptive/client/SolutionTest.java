@@ -35,6 +35,7 @@ public class SolutionTest {
         request.getClaw();
         request.getWing();
         request.getFire();
+        request.toString();
     }
 
     @Test
