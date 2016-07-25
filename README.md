@@ -21,6 +21,7 @@ Simple java library to solve Dragons of Mugloar game.
 6. [Submit solution to a server](#6-submit-solution-to-a-server)
 7. [Check results](#7-check-results)
 
+Library usage example:
 
 ###1. Add new module to your project
 Include the following in your `pom.xml` for Maven:
@@ -30,7 +31,7 @@ Include the following in your `pom.xml` for Maven:
   <dependency>
     <groupId>com.github.javadev</groupId>
     <artifactId>Dragons-of-Mugloar-solution</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
   </dependency>
   ...
 </dependencies>
@@ -39,7 +40,7 @@ Include the following in your `pom.xml` for Maven:
 ###2. Create client
 
 ```java
-AsyncClient client = AsyncClient.createDefault();
+GameClient client = AsyncClient.createDefault();
 ```
 
 ###3. Load a game
@@ -60,7 +61,7 @@ WeatherResponse weatherResponse = client.getWeather(game.getGameId()).get();
 SolutionRequest request = client.generateGameSolution(game.getGameResponseItem(), weatherResponse);
 ```
 
-###6. Submit solution to a server
+###6. Submit solution to a server if weather is not storm
 
 ```java
 SolutionResponse response = client.sendSolution(game.getGameId(), request).get();
