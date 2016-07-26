@@ -60,7 +60,7 @@ WeatherResponse weatherResponse = client.getWeather(game.getGameId()).get();
 SolutionRequest request = client.generateGameSolution(game.getGameResponseItem(), weatherResponse);
 ```
 
-###6. Submit solution to a server if weather is not storm
+###6. Submit solution to a server
 
 ```java
 SolutionResponse response = client.sendSolution(game.getGameId(), request).get();
