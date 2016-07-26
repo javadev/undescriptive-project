@@ -21,7 +21,6 @@ Simple java library to solve Dragons of Mugloar game.
 6. [Submit solution to a server](#6-submit-solution-to-a-server)
 7. [Check results](#7-check-results)
 
-Library usage example:
 
 ###1. Add new module to your project
 Include the following in your `pom.xml` for Maven:
