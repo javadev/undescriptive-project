@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class SolutionTest {
+public class HttpClientTest {
     private static GameClient client = HttpClient.createDefault();
 
     @Test
@@ -35,5 +35,10 @@ public class SolutionTest {
         assertEquals("victoryCount + stormCount + errorCount should be 20000", 20000,
             gameCounters.getVictoryCount().get() + gameCounters.getStormCount().get()
             + gameCounters.getErrorCount().get());
+    }
+
+    @Test
+    public void main() {
+        HttpClient.main("test");
     }
 }
