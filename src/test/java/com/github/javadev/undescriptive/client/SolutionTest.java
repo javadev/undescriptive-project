@@ -1,65 +1,30 @@
 package com.github.javadev.undescriptive.client;
 
-import ch.qos.logback.classic.Level;
-import com.github.javadev.undescriptive.protocol.response.GameCounters;
-import com.github.javadev.undescriptive.protocol.request.SolutionRequest;
-import com.github.javadev.undescriptive.protocol.response.GameResponseItem;
-import com.github.javadev.undescriptive.protocol.response.GameResponse;
-import com.github.javadev.undescriptive.protocol.response.SolutionResponse;
-import com.github.javadev.undescriptive.protocol.response.WeatherResponse;
+import java.util.Map;
+import com.github.underscore.lodash.$;
 import org.junit.Test;
-
-import org.junit.BeforeClass;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static org.junit.Assert.assertEquals;
 
 public class SolutionTest {
-    private static GameClient client = AsyncClient.createDefault();
-
-    @BeforeClass
-    public static void beforeClass() {
-        ((ch.qos.logback.classic.Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME)).setLevel(Level.INFO);
-    }
+    private static GameClient client = HttpClient.createDefault();
 
     @Test
-    public void testRequest() throws Exception {
-        final SolutionRequest request = SolutionRequest.builder()
-            .scale(5)
-            .claw(5)
-            .wing(5)
-            .fire(5)
-            .build();
-        request.getScale();
-        request.getClaw();
-        request.getWing();
-        request.getFire();
-        request.toString();
-    }
-
-    @Test
-    public void testResponse() throws Exception {
-        GameResponseItem gameResponseItem = new GameResponseItem("name", 1, 1, 1, 1);
-        gameResponseItem.getName();
-        gameResponseItem.getAttack();
-        gameResponseItem.getArmor();
-        gameResponseItem.getAgility();
-        gameResponseItem.getEndurance();
-        gameResponseItem.toString();
-        GameResponse gameResponse = new GameResponse(1, gameResponseItem);
-        gameResponse.getGameId();
-        gameResponse.getGameResponseItem();
-        gameResponse.toString();
-        SolutionResponse solutionResponse = new SolutionResponse("", "");
-        solutionResponse.getStatus();
-        solutionResponse.getMessage();
-        solutionResponse.toString();
-        WeatherResponse weatherResponse = new WeatherResponse("", "", "", "", "");
-        weatherResponse.getTime();
-        weatherResponse.getCode();
-        weatherResponse.getMessage();
-        weatherResponse.toString();
+    public void weatherParser() {
+        Map<String, Object> result = (Map<String, Object>) $.fromXml(
+        "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"
+        + "<report>"
+        + "    <time>Sat Sep 10 2016 13:50:19 GMT+0000 (UTC)</time>"
+        + "    <coords>"
+        + "        <x>3916.234</x>"
+        + "        <y>169.914</y>"
+        + "        <z>6.33</z>"
+        + "    </coords><code>NMR</code>"
+        + "    <message>Another day of everyday normal regular weather, business as usual, "
+        + "unless it’s going to be like the time of the Great Paprika Mayonnaise Incident of 2014, that was some pretty nasty stuff.</message>"
+        + "    <varX-Rating>8</varX-Rating>"
+        + "</report>");
+        assertEquals("NMR", $.get(result, "code"));
     }
 
     @Test

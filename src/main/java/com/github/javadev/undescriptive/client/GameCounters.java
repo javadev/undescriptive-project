@@ -1,4 +1,4 @@
-package com.github.javadev.undescriptive.protocol.response;
+package com.github.javadev.undescriptive.client;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

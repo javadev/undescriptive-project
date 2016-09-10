@@ -1,25 +1,15 @@
 package com.github.javadev.undescriptive.client;
 
-import com.github.javadev.undescriptive.protocol.request.SolutionRequest;
-import com.github.javadev.undescriptive.protocol.response.GameCounters;
-import com.github.javadev.undescriptive.protocol.response.GameResponse;
-import com.github.javadev.undescriptive.protocol.response.GameResponseItem;
-import com.github.javadev.undescriptive.protocol.response.SolutionResponse;
-import com.github.javadev.undescriptive.protocol.response.WeatherResponse;
-import com.google.common.util.concurrent.ListenableFuture;
+import java.util.Map;
 
 public interface GameClient {
-    void close();
+    Map<String, Object> getGame();
 
-    void closeAsynchronously();
+    Map<String, Object> getWeather(Long id);
 
-    ListenableFuture<GameResponse> getGame();
+    Map<String, Object> sendSolution(Long id, Map<String, Object> solutionRequest);
 
-    ListenableFuture<WeatherResponse> getWeather(Integer id);
-
-    ListenableFuture<SolutionResponse> sendSolution(Integer id, SolutionRequest solutionRequest);
-
-    SolutionRequest generateGameSolution(GameResponseItem gameResponseItem, WeatherResponse weatherResponse);
+    Map<String, Object> generateGameSolution(Map<String, Object> gameResponseItem, Map<String, Object> weatherResponse);
 
     GameCounters getAndSolveGames(int amountOfGames);
 }
