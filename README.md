@@ -30,7 +30,7 @@ Include the following in your `pom.xml` for Maven:
   <dependency>
     <groupId>com.github.javadev</groupId>
     <artifactId>Dragons-of-Mugloar-solution</artifactId>
-    <version>1.1</version>
+    <version>1.2</version>
   </dependency>
   ...
 </dependencies>
@@ -39,39 +39,39 @@ Include the following in your `pom.xml` for Maven:
 ###2. Create client
 
 ```java
-GameClient client = AsyncClient.createDefault();
+GameClient client = HttpClient.createDefault();
 ```
 
 ###3. Load a game
 
 ```java
-GameResponse game = client.getGame().get();
+Map<String, Object> game = client.getGame();
 ```
 
 ###4. Load weather information
 
 ```java
-WeatherResponse weatherResponse = client.getWeather(game.getGameId()).get();
+Map<String, Object> weatherResponse = client.getWeather((Long) $.get(game, "gameId"));
 ```
 
 ###5. Generate game solution
 
 ```java
-SolutionRequest request = client.generateGameSolution(game.getGameResponseItem(), weatherResponse);
+final Map<String, Object> request = client.generateGameSolution((Map<String, Object>) $.get(game, "knight"), weatherResponse);
 ```
 
 ###6. Submit solution to a server
 
 ```java
-SolutionResponse response = client.sendSolution(game.getGameId(), request).get();
+Map<String, Object> response = client.sendSolution((Long) $.get(game, "gameId"), request);
 ```
 
 ###7. Check results
 
 ```java
-if ("Victory".equals(response.getStatus())) {
+if ("Victory".equals((String) $.get(response, "status"))) {
     // We win a game
-} else if ("SRO".equals(weatherResponse.getCode())) {
+} else if ("SRO".equals((String) $.get(weatherResponse, "code"))) {
     // Storm weather
 }
 ```
