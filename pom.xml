@@ -32,7 +32,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <underscore-lodash.version>1.23</underscore-lodash.version>
+    <underscore-lodash.version>1.24</underscore-lodash.version>
     <junit.version>4.12</junit.version>
   </properties>
 
