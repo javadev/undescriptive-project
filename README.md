@@ -8,7 +8,6 @@ Simple java library to solve Dragons of Mugloar game.
 [![codecov.io](http://codecov.io/github/javadev/undescriptive-project/coverage.svg?branch=master)](http://codecov.io/github/javadev/undescriptive-project?branch=master)
 [![Circle CI](https://circleci.com/gh/javadev/undescriptive-project.svg?style=badge)](https://circleci.com/gh/javadev/undescriptive-project)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1ef9ebbd64c64745915d78621af8bb7a)](https://www.codacy.com/app/javadev75/undescriptive-project?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=javadev/undescriptive-project&amp;utm_campaign=Badge_Grade)
-[![Dependency Status](https://www.versioneye.com/user/projects/578ef4b688bf880040a26eae/badge.svg?style=flat)](https://www.versioneye.com/user/projects/578ef4b688bf880040a26eae)
 
 [![Join the chat at https://gitter.im/javadev/undescriptive-project](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/javadev/undescriptive-project?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
